@@ -49,7 +49,7 @@ class CustomUser:
                 common_count.append(len(features_token_set.intersection(combo_summary_token_set)))
 
             reqbased['Similarity_Count'] = common_count
-            reqbased = reqbased.sort_values(by='Similarity_Count', ascending=False).head(31)
+            reqbased = reqbased.sort_values(by='Similarity_Count', ascending=False)#.head(31)
             reqbased = reqbased[['Name','Similarity','Genres','Synopsis','Other name','Score','Episodes','Favorites','Image URL']]
             return list(reqbased.to_dict('records'))
 
