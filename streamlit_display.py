@@ -138,6 +138,8 @@ class StreamlitDisplay:
             else:
                 self.animes.clear()
                 st.balloons()
+
+
         except:
             st.error('Recommendation NOT Complete. Try Again', icon='❗')
 
