@@ -1,4 +1,5 @@
 import pandas as pd
+import streamlit as st
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -42,14 +43,13 @@ class CustomUser:
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
             self.df_anime2 = self.df_anime2.reset_index(drop=True)
 
-
             for i in range(self.df_anime2.shape[0]):
                 summary = self.standardization(self.df_anime2['Synopsis'][i])
                 summary_features_token = word_tokenize(summary)
                 combo_summary_token_set = set([ps.stem(token) for token in summary_features_token if token not in eng_sw])
                 self.df_anime2['Similarity'] = len(features_token_set.intersection(combo_summary_token_set))
             self.df_anime2 = self.df_anime2.sort_values(by='Similarity', ascending=False)
-
+            st.dataframe(self.df_anime2)
             for i in range(30):
                 anime_name = self.df_anime2['Name'].values[i]
                 similarity = self.df_anime2['Similarity'].values[i]
