@@ -33,7 +33,7 @@ if engine == 'Content Based Recommendations':
     similar_animes_obj = Collaborative(anime_selected)
     similar_animes = similar_animes_obj.find_similar_animes()
     StreamlitDisplay(similar_animes,custom_engine=False)
-    st.balloons()
+    #st.balloons()
 
 
 else:
@@ -61,4 +61,5 @@ else:
     if st.button('Search for Animes!'):
         user_needs = CustomUser()
         similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
+        st.write(similar_animes)
         StreamlitDisplay(similar_animes,custom_engine=True)

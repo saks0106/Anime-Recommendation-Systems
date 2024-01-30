@@ -74,7 +74,7 @@ class CustomUser:
                                       'Favorites': fav,
                                       'Image URL': url})
 
-            st.write(CustomUser.SimilarityArr)
+
 
             return CustomUser.SimilarityArr
         except:
