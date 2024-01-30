@@ -37,11 +37,9 @@ class CustomUser:
             features_token = word_tokenize(features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
 
-            if len(user_input_genres) != 0:
-                genre_pattern = '|'.join(user_input_genres)
-                genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
-                self.df_anime2 = self.df_anime2[genres_selected]
-
+            genre_pattern = '|'.join(user_input_genres)
+            genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
+            self.df_anime2 = self.df_anime2[genres_selected]
 
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
             self.df_anime2 = self.df_anime2.reset_index(drop=True)
