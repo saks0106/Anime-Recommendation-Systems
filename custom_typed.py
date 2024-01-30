@@ -16,7 +16,7 @@ df_anime = pd.read_csv('df_anime.csv')
 
 
 class CustomUser:
-    SimilarityArr = []
+
     def standardization(self,data):
         x = tf.strings.lower(data)  # all strings to lower
         x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
@@ -61,7 +61,8 @@ class CustomUser:
                 fav = self.df_anime2['Favorites'].values[i]
                 url = self.df_anime2['Image URL'].values[i]
 
-                CustomUser.SimilarityArr.append({"Name": anime_name,
+                SimilarityArr = []
+                SimilarityArr.append({"Name": anime_name,
                                       "Similarity": similarity,
                                       "Genres": genre,
                                       "Synopsis": synopsis,
@@ -71,7 +72,7 @@ class CustomUser:
                                       'Favorites': fav,
                                       'Image URL': url})
 
-            return CustomUser.SimilarityArr
+            return SimilarityArr
 
         except:
             print(f"{features} not found!. Please Try Again")
