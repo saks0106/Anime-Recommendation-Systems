@@ -1,13 +1,11 @@
 import streamlit as st
 import random
 
-
 class StreamlitDisplay:
-
     def __init__(self, animes, custom_engine=False):
         self.animes = animes  # dictionaries in list
         self.custom_engine = custom_engine
-        self.recommendation_display()
+
 
     def recommendation_display(self):
         try:
@@ -136,9 +134,7 @@ class StreamlitDisplay:
                 st.snow()
             else:
                 st.balloons()
-
         except:
-
             st.error('Recommendation NOT Complete. Try Again', icon='❗')
 
         self.animes.clear()

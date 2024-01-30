@@ -31,13 +31,13 @@ if engine == 'Content Based Recommendations':
     anime_selected = st.selectbox('Choose or Type Anime Name:', options=anime_names)
     similar_animes_obj = Collaborative(anime_selected)
     similar_animes = similar_animes_obj.find_similar_animes()
-    StreamlitDisplay(similar_animes)
+    dis_arr = StreamlitDisplay(similar_animes)
+    dis_arr.recommendation_display()
     st.balloons()
 
 
 else:
     st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation Engine will Recommend Similar Animes! ')
-    user_needs = CustomUser()
     val = st.slider("Anime Rating Slider", min_value=3.0, max_value=8.0, value=6.5)
     anime_genres = ['Comedy', 'Fantasy', 'Action', 'Adventure', 'Sci-Fi',
        'Drama', 'Romance', 'Slice of Life', 'Supernatural', 'Hentai',
@@ -51,8 +51,10 @@ else:
             break
     user_text = st.text_area("Enter Anime Description, Main Characters, Synopsis, Anime Short Story or LEAVE it BLANK: ",)
     if st.button('Search for Animes!'):
+        user_needs = CustomUser()
         similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
-        StreamlitDisplay(similar_animes,custom_engine=True)
+        dis_attr = StreamlitDisplay(similar_animes,custom_engine=True)
+        dis_attr.recommendation_display()
 
 
 
