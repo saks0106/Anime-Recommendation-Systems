@@ -19,20 +19,20 @@ df_anime = pd.read_csv('df_anime.csv')
 
 class CustomUser:
     SimilarityArr = []
-    def standardization(self,data):
-        x = tf.strings.lower(data)  # all strings to lower
-        x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
-        x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
-                                     " ")  # removing punctuation
-        x = x.numpy()
-        x = x.decode('utf-8')
-        return x
+    # def standardization(self,data):
+    #     x = tf.strings.lower(data)  # all strings to lower
+    #     x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
+    #     x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+    #                                  " ")  # removing punctuation
+    #     x = x.numpy()
+    #     x = x.decode('utf-8')
+    #     return x
 
     def requirementbased(self,user_input_genres, scores, features):
         self.df_anime2 = df_anime.copy()
 
         try:
-            features = self.standardization(features)
+            # features = self.standardization(features)
             eng_sw = stopwords.words('english')
             features_token = word_tokenize(features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
@@ -42,12 +42,13 @@ class CustomUser:
                 genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
                 self.df_anime2 = self.df_anime2[genres_selected]
 
-            st.dataframe(self.df_anime2)
+
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
             self.df_anime2 = self.df_anime2.reset_index(drop=True)
 
             for i in range(self.df_anime2.shape[0]):
-                summary = self.standardization(self.df_anime2['Synopsis'][i])
+                #summary = self.standardization(self.df_anime2['Synopsis'][i])
+                summary = self.df_anime2['Synopsis'][i]
                 summary_features_token = word_tokenize(summary)
                 combo_summary_token_set = set([ps.stem(token) for token in summary_features_token if token not in eng_sw])
                 self.df_anime2['Similarity'] = len(features_token_set.intersection(combo_summary_token_set))
