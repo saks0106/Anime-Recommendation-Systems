@@ -30,6 +30,7 @@ class CustomUser:
             features_token = word_tokenize(features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
 
+
             genre_pattern = '|'.join(user_input_genres)
             genres_selected = df_anime['Genres'].str.contains(genre_pattern)
             df_temp = df_anime[genres_selected]

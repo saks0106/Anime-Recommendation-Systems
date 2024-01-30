@@ -52,26 +52,3 @@ else:
         user_needs = CustomUser()
         similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
         StreamlitDisplay(similar_animes,custom_engine=True)
-
-
-
-
-
-
-
-
-# else:
-#     st.info('Based on the Count & Diversity of Animes a Random Database User has seen,Recommendation Engine will '
-#             'Recommend Similar Animes! ')
-#     st.info('Choose the Episode Count BELOW, We will recommend Animes watched by Similar Users!')
-#     st.write(" ")
-#     episode_count = st.slider(" ", min_value=1.0, max_value=3000.0, value=650.0)
-#     random_user_id = int(ratings_per_user[ratings_per_user >= episode_count].sample(1, random_state=42).index[0])
-#     user = UserAnime()
-#     similar_users = user.find_similar_users(random_user_id)
-#     user_pref = user.get_user_preferences(random_user_id)
-#     similar_animes = user.get_recommended_animes(similar_users, user_pref)
-#     StreamlitDisplay(similar_animes,user_engine=True)
-
-
-

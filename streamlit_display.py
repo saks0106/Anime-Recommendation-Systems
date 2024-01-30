@@ -10,6 +10,8 @@ class StreamlitDisplay:
 
     def recommendation_display(self):
         try:
+            if self.custom_engine:
+                st.subheader('Top Recommendation')
             m1, m2, m3 = st.columns(3)
             m1.image(self.animes[0]['Image URL'], width=300, )
             m2.subheader(f"Anime Selected: {self.animes[0]['Name']}")
