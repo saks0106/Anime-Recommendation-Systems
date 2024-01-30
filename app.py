@@ -61,5 +61,4 @@ else:
     if st.button('Search for Animes!'):
         user_needs = CustomUser()
         similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
-        st.write(similar_animes)
         StreamlitDisplay(similar_animes,custom_engine=True)
