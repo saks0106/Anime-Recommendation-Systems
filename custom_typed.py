@@ -42,7 +42,7 @@ class CustomUser:
                 genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
                 self.df_anime2 = self.df_anime2[genres_selected]
 
-            st.write(self.df_anime2)
+            st.dataframe(self.df_anime2)
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
             self.df_anime2 = self.df_anime2.reset_index(drop=True)
 
