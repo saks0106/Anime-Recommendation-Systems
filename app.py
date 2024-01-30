@@ -13,7 +13,7 @@ st.set_page_config(
 
 st.title('Anime Recommendation Application using 3 Approaches :japanese_goblin:', )
 st.subheader('Based on the Anime :movie_camera: & Recommendation Engine :rocket: You Select, We will Recommend :smiling_face_with_3_hearts: you another 5 Animes :star:  to Binge Watch! '':heart_eyes:')
-st.image("media\Animewallpaper.png", width=1050)
+st.image("Animewallpaper.png", width=1050)
 st.header('Please choose Recommendation :rocket: Engine: ')
 st.warning('Please Wait Patiently while the Background Process is Complete :turtle:')
 
