@@ -131,13 +131,13 @@ class StreamlitDisplay:
 
 
             st.success('Animes Recommendation Complete', icon='✅')
-            self.clear_all()
+
+
             if self.custom_engine:
                 st.snow()
             else:
+                self.animes.clear()
                 st.balloons()
         except:
             st.error('Recommendation NOT Complete. Try Again', icon='❗')
 
-    def clear_all(self):
-        self.animes.clear()
