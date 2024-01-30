@@ -15,6 +15,7 @@ anime_encoder = pickle.load(open('pickle_files/anime_encoder.pkl', 'rb'))
 #------------------------------------------------------------------------------------------
 
 class Collaborative:
+
     SimilarityArr = []
     def __init__(self,name):
         self.name = name

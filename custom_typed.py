@@ -73,10 +73,9 @@ class CustomUser:
                                       'Favorites': fav,
                                       'Image URL': url})
 
-
-
+            return CustomUser.SimilarityArr
         except:
             print(f"{features} not found!. Please Try Again")
 
-        return CustomUser.SimilarityArr
+
 
