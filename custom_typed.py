@@ -13,15 +13,12 @@ string.punctuation
 ps = PorterStemmer()
 warnings.filterwarnings(action='ignore')
 pd.set_option('display.max_columns', None)
+
 df_anime = pd.read_csv('df_anime.csv')
 
 
 class CustomUser:
-
-    def __init__(self):
-        self.df_anime2 = df_anime.copy()
-        st.dataframe(self.df_anime2)
-
+    SimilarityArr = []
     def standardization(self,data):
         x = tf.strings.lower(data)  # all strings to lower
         x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
@@ -32,7 +29,7 @@ class CustomUser:
         return x
 
     def requirementbased(self,user_input_genres, scores, features):
-
+        self.df_anime2 = df_anime.copy()
         try:
             features = self.standardization(features)
             eng_sw = stopwords.words('english')
@@ -65,8 +62,8 @@ class CustomUser:
                 fav = self.df_anime2['Favorites'].values[i]
                 url = self.df_anime2['Image URL'].values[i]
 
-                SimilarityArr = []
-                SimilarityArr.append({"Name": anime_name,
+
+                CustomUser.SimilarityArr.append({"Name": anime_name,
                                       "Similarity": similarity,
                                       "Genres": genre,
                                       "Synopsis": synopsis,
@@ -76,8 +73,10 @@ class CustomUser:
                                       'Favorites': fav,
                                       'Image URL': url})
 
-            return SimilarityArr
+
 
         except:
             print(f"{features} not found!. Please Try Again")
+
+        return CustomUser.SimilarityArr
 

@@ -11,7 +11,7 @@ class StreamlitDisplay:
     def recommendation_display(self):
         try:
             if self.custom_engine:
-                st.write(self.animes)
+
                 st.subheader('Top Recommendation')
 
             m1, m2, m3 = st.columns(3)

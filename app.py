@@ -37,7 +37,6 @@ if engine == 'Content Based Recommendations':
 
 
 else:
-    custom_engine = True
     st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation '
             'Engine will Recommend Similar Animes! ')
 
@@ -62,4 +61,4 @@ else:
     if st.button('Search for Animes!'):
         user_needs = CustomUser()
         similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
-        StreamlitDisplay(similar_animes,custom_engine)
+        StreamlitDisplay(similar_animes,custom_engine=True)
