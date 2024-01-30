@@ -7,11 +7,10 @@ warnings.filterwarnings(action='ignore')
 pd.set_option('display.max_columns', None)
 
 #------------------------------------------------------------------------------------
-df_anime = pd.read_csv('csv_files/df_anime.csv')
+df_anime = pd.read_csv('df_anime.csv')
 anime_weights = pickle.load(open('pickle_files/anime_weights.pkl', 'rb'))
-#user_weights = pickle.load(open('pickle_files/user_weights.pkl', 'rb'))
 anime_encoder = pickle.load(open('pickle_files/anime_encoder.pkl', 'rb'))
-#user_encoder = pickle.load(open('pickle_files/user_encoder.pkl', 'rb'))
+
 
 #------------------------------------------------------------------------------------------
 

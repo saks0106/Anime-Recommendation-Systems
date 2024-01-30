@@ -20,7 +20,7 @@ st.header('Please choose Recommendation :rocket: Engine: ')
 engine = st.radio('Select Any of the Recommendation Models below:',
                   options=('Content Based Recommendations','Custom Based Recommendations'))
 
-df_anime = pd.read_csv('csv_files/df_anime.csv')
+df_anime = pd.read_csv('df_anime.csv')
 ratings_per_user = pickle.load(open('pickle_files/ratings_per_user.pkl', 'rb'))
 
 

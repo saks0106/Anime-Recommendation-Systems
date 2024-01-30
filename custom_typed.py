@@ -9,7 +9,7 @@ import tensorflow as tf
 import re
 string.punctuation
 ps = PorterStemmer()
-df_anime = pd.read_csv('csv_files/df_anime.csv')
+df_anime = pd.read_csv('df_anime.csv')
 
 
 class CustomUser:
