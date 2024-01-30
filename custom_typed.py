@@ -2,13 +2,15 @@ import pandas as pd
 from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-
+import warnings
 
 import string
 import tensorflow as tf
 import re
 string.punctuation
 ps = PorterStemmer()
+warnings.filterwarnings(action='ignore')
+pd.set_option('display.max_columns', None)
 df_anime = pd.read_csv('df_anime.csv')
 
 
