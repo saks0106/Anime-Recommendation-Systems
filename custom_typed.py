@@ -30,6 +30,7 @@ class CustomUser:
 
     def requirementbased(self,user_input_genres, scores, features):
         self.df_anime2 = df_anime.copy()
+        st.dataframe(self.df_anime2)
         try:
             features = self.standardization(features)
             eng_sw = stopwords.words('english')
@@ -73,7 +74,7 @@ class CustomUser:
                                       'Favorites': fav,
                                       'Image URL': url})
 
-            return CustomUser.SimilarityArr
+            return st.write(CustomUser.SimilarityArr)
         except:
             print(f"{features} not found!. Please Try Again")
 
