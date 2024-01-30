@@ -42,7 +42,7 @@ class CustomUser:
             self.df_anime2 = self.df_anime2[genres_selected]
 
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
-            self.df_anime2 = self.df_anime2.loc[:,'anime_id':]
+
 
             for i in range(self.df_anime2.shape[0]):
                 #summary = self.standardization(self.df_anime2['Synopsis'][i])
@@ -51,7 +51,8 @@ class CustomUser:
                 combo_summary_token_set = set([ps.stem(token) for token in summary_features_token if token not in eng_sw])
                 self.df_anime2['Similarity'] = len(features_token_set.intersection(combo_summary_token_set))
             self.df_anime2 = self.df_anime2.sort_values(by='Similarity', ascending=False)
-            st.dataframe(self.df_anime2)
+            self.df_anime2.reset_index(drop=True, inplace=True)
+            self.df_anime2 = self.df_anime2.loc[:,'anime_id':]
 
             for i in range(30):
                 anime_name = self.df_anime2['Name'].values[i]
