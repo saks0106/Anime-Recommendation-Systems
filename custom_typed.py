@@ -42,6 +42,7 @@ class CustomUser:
                 genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
                 self.df_anime2 = self.df_anime2[genres_selected]
 
+            st.write(self.df_anime2)
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
             self.df_anime2 = self.df_anime2.reset_index(drop=True)
 
@@ -51,7 +52,7 @@ class CustomUser:
                 combo_summary_token_set = set([ps.stem(token) for token in summary_features_token if token not in eng_sw])
                 self.df_anime2['Similarity'] = len(features_token_set.intersection(combo_summary_token_set))
             self.df_anime2 = self.df_anime2.sort_values(by='Similarity', ascending=False)
-            st.write(self.df_anime2)
+
             for i in range(30):
                 anime_name = self.df_anime2['Name'].values[i]
                 similarity = self.df_anime2['Similarity'].values[i]
@@ -62,7 +63,7 @@ class CustomUser:
                 episodes = self.df_anime2['Episodes'].values[i]
                 fav = self.df_anime2['Favorites'].values[i]
                 url = self.df_anime2['Image URL'].values[i]
-                st.write(anime_name, url)
+
 
 
                 CustomUser.SimilarityArr.append({"Name": anime_name,

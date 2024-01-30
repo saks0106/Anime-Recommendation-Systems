@@ -20,7 +20,6 @@ class Collaborative:
     def __init__(self,name):
         self.name = name
 
-
     def find_similar_animes(self,n=30):
         try:
             anime_name = df_anime[df_anime['Name'].str.lower() == self.name.lower()].iloc[0]
