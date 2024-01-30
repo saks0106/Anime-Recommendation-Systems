@@ -136,7 +136,8 @@ class StreamlitDisplay:
             if self.custom_engine:
                 st.snow()
             else:
-                self.animes.clear()
+                if len(self.animes):
+                    self.animes.clear()
                 st.balloons()
 
 
