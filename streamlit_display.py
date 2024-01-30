@@ -5,6 +5,7 @@ class StreamlitDisplay:
     def __init__(self, animes, custom_engine=False):
         self.animes = animes  # dictionaries in list
         self.custom_engine = custom_engine
+        self.recommendation_display()
 
 
     def recommendation_display(self):
@@ -130,6 +131,7 @@ class StreamlitDisplay:
 
 
             st.success('Animes Recommendation Complete', icon='✅')
+            self.clear_all()
             if self.custom_engine:
                 st.snow()
             else:
@@ -137,4 +139,5 @@ class StreamlitDisplay:
         except:
             st.error('Recommendation NOT Complete. Try Again', icon='❗')
 
+    def clear_all(self):
         self.animes.clear()
