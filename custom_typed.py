@@ -18,6 +18,10 @@ df_anime = pd.read_csv('df_anime.csv')
 
 class CustomUser:
 
+    def __init__(self):
+        self.df_anime2 = df_anime.copy()
+        st.dataframe(self.df_anime2)
+
     def standardization(self,data):
         x = tf.strings.lower(data)  # all strings to lower
         x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
@@ -28,7 +32,7 @@ class CustomUser:
         return x
 
     def requirementbased(self,user_input_genres, scores, features):
-        self.df_anime2 = df_anime.copy()
+
         try:
             features = self.standardization(features)
             eng_sw = stopwords.words('english')
@@ -49,7 +53,7 @@ class CustomUser:
                 combo_summary_token_set = set([ps.stem(token) for token in summary_features_token if token not in eng_sw])
                 self.df_anime2['Similarity'] = len(features_token_set.intersection(combo_summary_token_set))
             self.df_anime2 = self.df_anime2.sort_values(by='Similarity', ascending=False)
-            st.dataframe(self.df_anime2)
+
             for i in range(30):
                 anime_name = self.df_anime2['Name'].values[i]
                 similarity = self.df_anime2['Similarity'].values[i]
