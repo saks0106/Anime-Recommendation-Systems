@@ -73,6 +73,7 @@ class CustomUser:
                 episodes = df_anime_dict[i]['Episodes']
                 fav = df_anime_dict[i]['Favorites']
                 url = df_anime_dict[i]['Image URL']
+                from_date = df_anime_dict[i]['Aired_From']
 
                 self.SimilarityArr.append({"Name": anime_name,
                                            "Similarity": similarity,
@@ -82,7 +83,8 @@ class CustomUser:
                                            'Score': score,
                                            'Episodes': episodes,
                                            'Favorites': fav,
-                                           'Image URL': url})
+                                           'Image URL': url,
+                                           'Aired_on':from_date})
 
             return self.SimilarityArr
 

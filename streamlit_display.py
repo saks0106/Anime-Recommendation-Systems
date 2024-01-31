@@ -1,17 +1,16 @@
 import streamlit as st
 import random
 
+
 class StreamlitDisplay:
     def __init__(self, animes, custom_engine=False):
         self.animes = animes  # dictionaries in list
         self.custom_engine = custom_engine
         self.recommendation_display()
 
-
     def recommendation_display(self):
         try:
             if self.custom_engine:
-
                 st.subheader('Top Recommendation')
 
             m1, m2, m3 = st.columns(3)
@@ -22,6 +21,7 @@ class StreamlitDisplay:
             m2.markdown(f"<h5>Anime Worldwide Score: {self.animes[0]['Score']}</h5>", unsafe_allow_html=True)
             m2.markdown(f"<h5>Episodes Count: {self.animes[0]['Episodes']}</h5>", unsafe_allow_html=True)
             m2.markdown(f"<h5>Loved by: {self.animes[0]['Favorites']} people </h5>", unsafe_allow_html=True)
+            m2.markdown(f"<h5>Aired On: {self.animes[0]['Aired_on']} </h5>", unsafe_allow_html=True)
             m3.caption(f"Anime Synopsis : {self.animes[0]['Synopsis']}")
 
             st.header("Recommended Animes are: ")
@@ -133,17 +133,14 @@ class StreamlitDisplay:
                 else:
                     st.markdown(f"Recommendation Score: {round(self.animes[col_11_value]['Score'] * 10, 2)} %")
 
-
             st.success('Animes Recommendation Complete', icon='✅')
-
 
             if self.custom_engine:
                 st.snow()
             else:
                 self.animes.clear()
-                st.balloons()
+
 
 
         except:
             st.error('Recommendation NOT Complete. Try Again', icon='❗')
-

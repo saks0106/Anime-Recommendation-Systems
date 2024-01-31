@@ -43,6 +43,10 @@ class Collaborative:
                 episodes = anime_frame['Episodes'].values[0]
                 fav = anime_frame['Favorites'].values[0]
                 url = anime_frame['Image URL'].values[0]
+                from_date = anime_frame['Aired_From'].values[0]
+
+
+
 
                 similarity = distances[anime_index]
                 similarity = "{:.2f}%".format(similarity * 100)
@@ -55,7 +59,8 @@ class Collaborative:
                                                     'Score': score,
                                                     'Episodes': episodes,
                                                     'Favorites': fav,
-                                                    'Image URL': url})
+                                                    'Image URL': url,
+                                                    'Aired_on': from_date})
 
             return Collaborative.SimilarityArr
 
