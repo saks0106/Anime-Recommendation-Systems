@@ -42,17 +42,13 @@ class CustomUser:
             eng_sw = stopwords.words('english')
             features_token = word_tokenize(features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
-            st.write(features_token_set)
+
             genre_pattern = '|'.join(self.user_input_genres)
             genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
             self.df_anime2 = self.df_anime2[genres_selected]
-            self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= self.scores].sort_values(by='Score',
-                                                                                                ascending=False)
+            self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= self.scores].sort_values(by='Score',ascending=False)
             st.dataframe(self.df_anime2)
-
             df_anime_dict = self.df_anime2.to_dict('records')
-            st.write(df_anime_dict)
-
             for i in range(len(df_anime_dict)):
                 summary = df_anime_dict[i]['Synopsis']
                 summary = standardization(summary)
@@ -63,7 +59,7 @@ class CustomUser:
                 df_anime_dict[i]['Similarity'] = common_count
 
             df_anime_dict = sorted(df_anime_dict, key=lambda k: k['Similarity'], reverse=True)
-            st.write(df_anime_dict)
+
 
             for i in range(31):
                 anime_name = df_anime_dict[i]['Name']
@@ -85,7 +81,7 @@ class CustomUser:
                                            'Episodes': episodes,
                                            'Favorites': fav,
                                            'Image URL': url})
-            st.write(self.SimilarityArr)
+
             return self.SimilarityArr
 
 
