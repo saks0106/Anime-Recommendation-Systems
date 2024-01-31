@@ -32,9 +32,8 @@ class CustomUser:
         self.scores = scores
         self.features = features
         self.SimilarityArr = []
-
         self.df_anime2 = pd.read_csv('df_anime.csv')
-        st.write(self.df_anime2)
+
 
     def requirementbased(self):
 
@@ -63,6 +62,7 @@ class CustomUser:
                 df_anime_dict[i]['Similarity'] = common_count
 
             df_anime_dict = sorted(df_anime_dict, key=lambda k: k['Similarity'], reverse=True)
+            st.write(df_anime_dict)
 
             for i in range(31):
                 anime_name = df_anime_dict[i]['Name']
