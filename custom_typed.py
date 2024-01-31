@@ -9,6 +9,7 @@ import random
 import string
 import tensorflow as tf
 import re
+
 string.punctuation
 ps = PorterStemmer()
 warnings.filterwarnings(action='ignore')
@@ -16,40 +17,47 @@ pd.set_option('display.max_columns', None)
 df_anime = pd.read_csv('df_anime.csv')
 
 
+def standardization(data):
+    x = tf.strings.lower(data)  # all strings to lower
+    x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
+    x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+                                 " ")  # removing punctuation
+    x = x.numpy()
+    x = x.decode('utf-8')
+    return x
+
+
 class CustomUser:
-    SimilarityArr = []
 
-    def __init__(self):
-        pass
 
-    def standardization(self, data):
-        x = tf.strings.lower(data)  # all strings to lower
-        x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
-        x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
-                                     " ")  # removing punctuation
-        x = x.numpy()
-        x = x.decode('utf-8')
-        return x
+    def __init__(self, user_input_genres, scores, features):
+        self.user_input_genres = user_input_genres
+        self.scores = scores
+        self.features = features
+        self.SimilarityArr = []
 
-    def requirementbased(self, user_input_genres, scores, features):
+        self.df_anime2 = df_anime.copy()
+
+
+    def requirementbased(self):
 
         try:
-            self.df_anime2 = df_anime.copy()
-            features = self.standardization(features)
+            features = standardization(self.features)
             eng_sw = stopwords.words('english')
             features_token = word_tokenize(features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
 
-            genre_pattern = '|'.join(user_input_genres)
+            genre_pattern = '|'.join(self.user_input_genres)
             genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
             self.df_anime2 = self.df_anime2[genres_selected]
-            self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
+            self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= self.scores].sort_values(by='Score',
+                                                                                                ascending=False)
 
             df_anime_dict = self.df_anime2.to_dict('records')
 
             for i in range(len(df_anime_dict)):
                 summary = df_anime_dict[i]['Synopsis']
-                summary = self.standardization(summary)
+                summary = standardization(summary)
                 summary_features_token = word_tokenize(summary)
 
                 combo_summary_token_set = set(
@@ -59,7 +67,7 @@ class CustomUser:
 
             df_anime_dict = sorted(df_anime_dict, key=lambda k: k['Similarity'], reverse=True)
 
-            for i in range(30):
+            for i in range(31):
                 anime_name = df_anime_dict[i]['Name']
                 similarity = df_anime_dict[i]['Similarity']
                 genre = df_anime_dict[i]['Genres']
@@ -70,7 +78,7 @@ class CustomUser:
                 fav = df_anime_dict[i]['Favorites']
                 url = df_anime_dict[i]['Image URL']
 
-                CustomUser.SimilarityArr.append({"Name": anime_name,
+                self.SimilarityArr.append({"Name": anime_name,
                                                  "Similarity": similarity,
                                                  "Genres": genre,
                                                  "Synopsis": synopsis,
@@ -79,11 +87,12 @@ class CustomUser:
                                                  'Episodes': episodes,
                                                  'Favorites': fav,
                                                  'Image URL': url})
-            st.write(CustomUser.SimilarityArr)
-            return CustomUser.SimilarityArr
+            st.write(self.SimilarityArr)
+            return self.SimilarityArr
+
 
 
         except:
-            print(f"{features}  not found!. Please Try Again")
+            print(f"{self.features}  not found!. Please Try Again")
 
 

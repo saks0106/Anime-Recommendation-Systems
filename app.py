@@ -59,6 +59,8 @@ else:
     user_text = st.text_area("Enter Anime Description, Main Characters, Synopsis, Anime Short Story or LEAVE it BLANK: ",)
 
     if st.button('Search for Animes!'):
-        user_needs = CustomUser()
-        similar_animes = user_needs.requirementbased(user_selected_genres,val,user_text)
-        StreamlitDisplay(similar_animes,custom_engine=True)
+        similar_animes_obj = CustomUser(user_selected_genres,val,user_text)
+        similar_animes = similar_animes_obj.requirementbased()
+        StreamlitDisplay(similar_animes, custom_engine=True)
+
+
