@@ -76,7 +76,7 @@ class CustomUser:
                                                  'Episodes': episodes,
                                                  'Favorites': fav,
                                                  'Image URL': url})
-
+            st.write(CustomUser.SimilarityArr)
             return CustomUser.SimilarityArr
 
 
