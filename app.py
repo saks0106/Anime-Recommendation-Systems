@@ -31,6 +31,7 @@ if engine == 'Content Based Recommendations':
     anime_names = df_anime['Name'].tolist()
     anime_selected = st.selectbox('Choose or Type Anime Name:', options=anime_names)
     similar_animes_obj = Collaborative(anime_selected)
+    st.write(similar_animes_obj)
     similar_animes = similar_animes_obj.find_similar_animes()
     StreamlitDisplay(similar_animes,custom_engine=False)
     #st.balloons()
