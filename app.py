@@ -58,14 +58,11 @@ elif engine == 'Custom Based Recommendations':
 
     user_text = st.text_area("Enter Anime Description, Main Characters, Synopsis, Anime Short Story or LEAVE it BLANK: ",)
 
-
-    def buttonClick():
-        similar_animes_obj = CustomUser(user_selected_genres, val, user_text)
+    if st.button('Search for Animes!'):
+        similar_animes_obj = CustomUser(user_selected_genres,val,user_text)
         similar_animes = similar_animes_obj.requirementbased()
+        st.write(similar_animes)
         StreamlitDisplay(similar_animes, custom_engine=True)
-
-    st.button('Search for your Animes!', on_click=buttonClick)
-
 
 else:
     pass

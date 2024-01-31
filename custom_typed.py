@@ -4,17 +4,15 @@ from nltk.stem.porter import PorterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import warnings
-import random
 
-import string
 import tensorflow as tf
 import re
 
-string.punctuation
 ps = PorterStemmer()
+
 warnings.filterwarnings(action='ignore')
 pd.set_option('display.max_columns', None)
-df_anime = pd.read_csv('df_anime.csv')
+
 
 
 def standardization(data):
@@ -29,15 +27,14 @@ def standardization(data):
 
 class CustomUser:
 
-
     def __init__(self, user_input_genres, scores, features):
         self.user_input_genres = user_input_genres
         self.scores = scores
         self.features = features
         self.SimilarityArr = []
 
-        self.df_anime2 = df_anime.copy()
-
+        self.df_anime2 = pd.read_csv('df_anime.csv')
+        st.write(self.df_anime2)
 
     def requirementbased(self):
 
@@ -79,14 +76,14 @@ class CustomUser:
                 url = df_anime_dict[i]['Image URL']
 
                 self.SimilarityArr.append({"Name": anime_name,
-                                                 "Similarity": similarity,
-                                                 "Genres": genre,
-                                                 "Synopsis": synopsis,
-                                                 "Other name": local_name,
-                                                 'Score': score,
-                                                 'Episodes': episodes,
-                                                 'Favorites': fav,
-                                                 'Image URL': url})
+                                           "Similarity": similarity,
+                                           "Genres": genre,
+                                           "Synopsis": synopsis,
+                                           "Other name": local_name,
+                                           'Score': score,
+                                           'Episodes': episodes,
+                                           'Favorites': fav,
+                                           'Image URL': url})
             st.write(self.SimilarityArr)
             return self.SimilarityArr
 
@@ -94,5 +91,3 @@ class CustomUser:
 
         except:
             print(f"{self.features}  not found!. Please Try Again")
-
-
