@@ -19,6 +19,9 @@ df_anime = pd.read_csv('df_anime.csv')
 class CustomUser:
     SimilarityArr = []
 
+    def __init__(self):
+        pass
+
     def standardization(self, data):
         x = tf.strings.lower(data)  # all strings to lower
         x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
