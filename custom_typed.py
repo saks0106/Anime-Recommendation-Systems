@@ -47,7 +47,9 @@ class CustomUser:
             genres_selected = self.df_anime2['Genres'].str.contains(genre_pattern)
             self.df_anime2 = self.df_anime2[genres_selected]
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= self.scores].sort_values(by='Score',ascending=False)
-            st.dataframe(self.df_anime2)
+            self.df_anime2.reset_index(inplace = True, drop = True)
+            self.df_anime2 = self.df_anime2.loc[:,'anime_id':]
+            #st.dataframe(self.df_anime2)
             df_anime_dict = self.df_anime2.to_dict('records')
             for i in range(len(df_anime_dict)):
                 summary = df_anime_dict[i]['Synopsis']
