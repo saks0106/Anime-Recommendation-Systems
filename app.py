@@ -36,7 +36,7 @@ if engine == 'Content Based Recommendations':
     #st.balloons()
 
 
-else:
+elif engine == 'Custom Based Recommendations':
     st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation '
             'Engine will Recommend Similar Animes! ')
 
@@ -63,4 +63,5 @@ else:
         similar_animes = similar_animes_obj.requirementbased()
         StreamlitDisplay(similar_animes, custom_engine=True)
 
-
+else:
+    pass
