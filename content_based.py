@@ -45,9 +45,6 @@ class Collaborative:
                 url = anime_frame['Image URL'].values[0]
                 from_date = anime_frame['Aired_From'].values[0]
 
-
-
-
                 similarity = distances[anime_index]
                 similarity = "{:.2f}%".format(similarity * 100)
 

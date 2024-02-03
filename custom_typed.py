@@ -49,7 +49,6 @@ class CustomUser:
             self.df_anime2 = self.df_anime2[self.df_anime2['Score'] >= self.scores].sort_values(by='Score',ascending=False)
             self.df_anime2.reset_index(inplace = True, drop = True)
             self.df_anime2 = self.df_anime2.loc[:,'anime_id':]
-            #st.dataframe(self.df_anime2)
             df_anime_dict = self.df_anime2.to_dict('records')
             for i in range(len(df_anime_dict)):
                 summary = df_anime_dict[i]['Synopsis']
@@ -84,7 +83,7 @@ class CustomUser:
                                            'Episodes': episodes,
                                            'Favorites': fav,
                                            'Image URL': url,
-                                           'Aired_on':from_date})
+                                           'Aired_on': from_date})
 
             return self.SimilarityArr
 
