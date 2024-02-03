@@ -32,7 +32,7 @@ class CustomUser:
         self.scores = scores
         self.features = features
         self.SimilarityArr = []
-        self.df_anime2 = pd.read_csv('df_anime.csv')
+        self.df_anime2 = pd.read_csv('animedb.csv') #pd.read_csv('df_anime.csv')
 
 
     def requirementbased(self):
