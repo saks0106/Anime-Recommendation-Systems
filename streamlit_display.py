@@ -41,7 +41,9 @@ class StreamlitDisplay:
                     else:
                         st.markdown(f"Anime Score: {round(self.animes[random_number]['Score'] * 10, 2)} %")
 
-
+            st.write(" ")
+            st.markdown("""---""")
+            st.write(" ")
             cols2 = [col7, col8, col9, col10, col11] = st.columns(5)
             for i in range(5):
                 with cols2[i]:
