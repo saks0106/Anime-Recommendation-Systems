@@ -15,14 +15,14 @@ pd.set_option('display.max_columns', None)
 
 
 
-def standardization(data):
-    x = tf.strings.lower(data)  # all strings to lower
-    x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
-    x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
-                                 " ")  # removing punctuation
-    x = x.numpy()
-    x = x.decode('utf-8')
-    return x
+# def standardization(data):
+#     x = tf.strings.lower(data)  # all strings to lower
+#     x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
+#     x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+#                                  " ")  # removing punctuation
+#     x = x.numpy()
+#     x = x.decode('utf-8')
+#     return x
 
 
 class CustomUser:
@@ -38,9 +38,9 @@ class CustomUser:
     def requirementbased(self):
 
         try:
-            features = standardization(self.features)
+            #features = standardization(self.features)
             eng_sw = stopwords.words('english')
-            features_token = word_tokenize(features)
+            features_token = word_tokenize(self.features)
             features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
 
             genre_pattern = '|'.join(self.user_input_genres)
@@ -52,7 +52,7 @@ class CustomUser:
             df_anime_dict = self.df_anime2.to_dict('records')
             for i in range(len(df_anime_dict)):
                 summary = df_anime_dict[i]['Synopsis']
-                summary = standardization(summary)
+                #summary = standardization(summary)
                 summary_features_token = word_tokenize(summary)
                 combo_summary_token_set = set(
                     [ps.stem(token) for token in summary_features_token if token not in eng_sw])
