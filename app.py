@@ -60,8 +60,16 @@ elif engine == 'Content Based Recommendations':
 
 elif engine == 'Custom Based Recommendations':
     popular_animes(disabled=True)
+    def calling(user_selected_genres=[],val=6.5, user_text=''):
+            similar_obj = CustomUser(user_selected_genres,val,user_text)
+            similar_animes = similar_obj.requirementbased()
+            StreamlitDisplay(similar_animes, custom_engine=True)
+
+
     st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation '
             'Engine will Recommend Similar Animes! ')
+
+
 
     anime_genres = ['Comedy', 'Fantasy', 'Action', 'Adventure', 'Sci-Fi',
                     'Drama', 'Romance', 'Slice of Life', 'Supernatural', 'Hentai',
@@ -75,14 +83,40 @@ elif engine == 'Custom Based Recommendations':
         if genre in nsfw:
             st.warning('NSFW Genre(s) Selected :warning:')
             pass
-    val = st.slider("Anime Rating Slider", min_value=3.0, max_value=8.0, value=6.5)
+
     user_text = st.text_area(
         "Enter Anime Description, Main Characters, Synopsis, Anime Short Story or LEAVE it BLANK: ", )
 
-    if st.button('Search for Animes!'):
-        similar_obj = CustomUser(user_selected_genres, val, user_text)
-        similar_animes = similar_obj.requirementbased()
-        StreamlitDisplay(similar_animes, custom_engine=True)
+    val = st.slider("Anime Rating Slider", min_value=3.0, max_value=8.0, value=6.5)
+    calling(user_selected_genres,val,user_text)
+
+
+
+    #
+    # popular_animes(disabled=True)
+    # st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation '
+    #         'Engine will Recommend Similar Animes! ')
+    #
+    # anime_genres = ['Comedy', 'Fantasy', 'Action', 'Adventure', 'Sci-Fi',
+    #                 'Drama', 'Romance', 'Slice of Life', 'Supernatural', 'Hentai',
+    #                 'Mystery', 'Avant Garde', 'Ecchi', 'Sports', 'Horror', 'Suspense',
+    #                 'Award Winning', 'Boys Love', 'Gourmet', 'Girls Love', 'Erotica']
+    #
+    # nsfw = ['Ecchi', 'Erotica', 'Hentai']
+    #
+    # user_selected_genres = st.multiselect("Choose Genres:", options=anime_genres)
+    # for genre in user_selected_genres:
+    #     if genre in nsfw:
+    #         st.warning('NSFW Genre(s) Selected :warning:')
+    #         pass
+    # val = st.slider("Anime Rating Slider", min_value=3.0, max_value=8.0, value=6.5)
+    # user_text = st.text_area(
+    #     "Enter Anime Description, Main Characters, Synopsis, Anime Short Story or LEAVE it BLANK: ", )
+    #
+    # if st.button('Search for Animes!'):
+    #     similar_obj = CustomUser(user_selected_genres, val, user_text)
+    #     similar_animes = similar_obj.requirementbased()
+    #     StreamlitDisplay(similar_animes, custom_engine=True)
 
 else:
     pass
