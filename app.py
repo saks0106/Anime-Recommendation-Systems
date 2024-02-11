@@ -62,7 +62,7 @@ elif engine == 'Custom Based Recommendations':
     popular_animes(disabled=True)
     def calling(user_selected_genres=[],val=6.5, user_text=''):
             similar_obj = CustomUser(user_selected_genres,val,user_text)
-            similar_animes = similar_obj.requirementbased()
+            similar_animes = similar_obj.requirement_based()
             StreamlitDisplay(similar_animes, custom_engine=True)
 
 
