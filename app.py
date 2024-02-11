@@ -68,6 +68,7 @@ elif engine == 'Custom Based Recommendations':
 
     st.info('Based on the Anime Rating, Genres or Description You Choose from the BELOW options ,Recommendation '
             'Engine will Recommend Similar Animes! ')
+    st.error('Streamlit Database Error has Occurred!. Try Later')
 
 
 
