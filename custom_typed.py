@@ -160,3 +160,4 @@ class CustomUser:
 user = CustomUser(user_input_genres=['Action'], scores=8, features='exciting adventure')
 recommendations = user.requirement_based()
 print(recommendations)
+ 
