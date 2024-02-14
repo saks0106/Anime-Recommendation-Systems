@@ -141,6 +141,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
 ps = PorterStemmer()
+import nltk
+nltk.download('punkt')
 
 st.set_page_config(
     page_title="Your Anime Recommendation System",
