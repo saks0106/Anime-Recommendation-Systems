@@ -2,7 +2,7 @@
 # Anime Recommendation System
 
 
-App Link https://saks0106-food101multiclassclassification-app-k4q9ai.streamlit.app/
+App Link https://saks0106-anime-recommendation-systems-app-alcoiv.streamlit.app/
 
 ## Project Description:
 Dependencies
