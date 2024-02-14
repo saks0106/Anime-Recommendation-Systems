@@ -196,25 +196,26 @@ elif engine == 'Custom Based Recommendations':
     popular_animes(disabled=True)
     def calling(user_selected_genres=[],scores=6.5, user_text=''):
         SimilarityArr = []
-        df_anime = pd.read_csv('animedb.csv')
-        eng_sw = set(stopwords.words('english'))
+        df_anime2 = pd.read_csv('animedb.csv')
+        #eng_sw = set(stopwords.words('english'))
         features_token = word_tokenize(user_text)
-        features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
+        #features_token_set = set([ps.stem(token) for token in features_token if token not in eng_sw])
+        features_token_set = set([ps.stem(token) for token in features_token])
 
         # Filter anime based on user input genres and scores
         genre_pattern = '|'.join(user_selected_genres)
-        genres_selected = df_anime['Genres'].str.contains(genre_pattern)
-        df_anime = df_anime[genres_selected]
-        df_anime = df_anime[df_anime['Score'] >= scores].sort_values(by='Score', ascending=False)
-        df_anime.reset_index(inplace=True, drop=True)
-        df_anime = df_anime.loc[:, 'anime_id':]
-        df_anime_dict = df_anime.to_dict('records')
+        genres_selected = df_anime2['Genres'].str.contains(genre_pattern)
+        df_anime2 = df_anime2[genres_selected]
+        df_anime2 = df_anime2[df_anime2['Score'] >= scores].sort_values(by='Score', ascending=False)
+        df_anime2.reset_index(inplace=True, drop=True)
+        df_anime2 = df_anime2.loc[:, 'anime_id':]
+        df_anime_dict = df_anime2.to_dict('records')
 
         # Calculate similarity based on common words in synopsis
         for anime_info in df_anime_dict:
             summary = anime_info['Synopsis']
             summary_token = word_tokenize(summary)
-            combo_summary_token_set = set([ps.stem(token) for token in summary_token if token not in eng_sw])
+            combo_summary_token_set = set([ps.stem(token) for token in summary_token])#set([ps.stem(token) for token in summary_token if token not in eng_sw])
             common_count = len(features_token_set.intersection(combo_summary_token_set))
             anime_info['Similarity'] = common_count
 
