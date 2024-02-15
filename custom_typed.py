@@ -127,10 +127,10 @@ class CustomUser:
     def requirement_based(self):
         try:
             # Tokenize and preprocess user features
-            #eng_sw = set(stopwords.words('english'))
+            eng_sw = set(stopwords.words('english'))
             features_token = word_tokenize(self.features)
-            # features_token_set = set([self.ps.stem(token) for token in features_token if token not in eng_sw])
-            features_token_set = set([self.ps.stem(token) for token in features_token])
+            features_token_set = set([self.ps.stem(token) for token in features_token if token not in eng_sw])
+            #features_token_set = set([self.ps.stem(token) for token in features_token])
 
             # Filter anime based on user input genres and scores
             genre_pattern = '|'.join(self.user_input_genres)
@@ -145,8 +145,8 @@ class CustomUser:
             for anime_info in df_anime_dict:
                 summary = anime_info['Synopsis']
                 summary_token = word_tokenize(summary)
-                # combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in eng_sw])\
-                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token])
+                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in eng_sw])\
+                #combo_summary_token_set = set([self.ps.stem(token) for token in summary_token])
                 common_count = len(features_token_set.intersection(combo_summary_token_set))
                 anime_info['Similarity'] = common_count
 
