@@ -101,9 +101,27 @@ from nltk.stem import PorterStemmer
 import nltk
 nltk.download('punkt')
 import tensorflow as tf
-
-
 ps = PorterStemmer()
+
+sw = [
+    'i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves',
+    'you', 'your', 'yours', 'yourself', 'yourselves',
+    'he', 'him', 'his', 'himself', 'she', 'her', 'hers', 'herself',
+    'it', 'its', 'itself', 'they', 'them', 'their', 'theirs', 'themselves',
+    'what', 'which', 'who', 'whom', 'this', 'that', 'these', 'those',
+    'am', 'is', 'are', 'was', 'were', 'be', 'been', 'being',
+    'have', 'has', 'had', 'having', 'do', 'does', 'did', 'doing',
+    'a', 'an', 'the', 'and', 'but', 'if', 'or', 'because', 'as',
+    'until', 'while', 'of', 'at', 'by', 'for', 'with', 'about',
+    'against', 'between', 'into', 'through', 'during', 'before', 'after',
+    'above', 'below', 'to', 'from', 'up', 'down', 'in', 'out', 'on',
+    'off', 'over', 'under', 'again', 'further', 'then', 'once', 'here',
+    'there', 'when', 'where', 'why', 'how', 'all', 'any', 'both', 'each',
+    'few', 'more', 'most', 'other', 'some', 'such', 'no', 'nor', 'not',
+    'only', 'own', 'same', 'so', 'than', 'too', 'very', 's', 't',
+    'can', 'will', 'just', 'don', 'should', 'now'
+]
+
 class CustomUser:
 
     def __init__(self, user_input_genres, scores, features):
@@ -127,9 +145,9 @@ class CustomUser:
     def requirement_based(self):
         try:
             # Tokenize and preprocess user features
-            eng_sw = set(stopwords.words('english'))
+            #eng_sw = set(stopwords.words('english'))
             features_token = word_tokenize(self.features)
-            features_token_set = set([self.ps.stem(token) for token in features_token if token not in eng_sw])
+            features_token_set = set([self.ps.stem(token) for token in features_token if token not in sw])
             #features_token_set = set([self.ps.stem(token) for token in features_token])
 
             # Filter anime based on user input genres and scores
@@ -145,7 +163,7 @@ class CustomUser:
             for anime_info in df_anime_dict:
                 summary = anime_info['Synopsis']
                 summary_token = word_tokenize(summary)
-                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in eng_sw])\
+                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in sw])
                 #combo_summary_token_set = set([self.ps.stem(token) for token in summary_token])
                 common_count = len(features_token_set.intersection(combo_summary_token_set))
                 anime_info['Similarity'] = common_count
