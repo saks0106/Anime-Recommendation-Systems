@@ -16,14 +16,14 @@
 #
 #
 #
-# # def standardization(data):
-# #     x = tf.strings.lower(data)  # all strings to lower
-# #     x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
-# #     x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
-# #                                  " ")  # removing punctuation
-# #     x = x.numpy()
-# #     x = x.decode('utf-8')
-# #     return x
+# def standardization(data):
+#     x = tf.strings.lower(data)  # all strings to lower
+#     x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
+#     x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+#                                  " ")  # removing punctuation
+#     x = x.numpy()
+#     x = x.decode('utf-8')
+#     return x
 #
 #
 # class CustomUser:
@@ -93,13 +93,17 @@
 #         except:
 #             print(f"{self.features}  not found!. Please Try Again")
 #
-
-
+import re
 import pandas as pd
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import PorterStemmer
+import nltk
+nltk.download('punkt')
+import tensorflow as tf
 
+
+ps = PorterStemmer()
 class CustomUser:
 
     def __init__(self, user_input_genres, scores, features):
@@ -110,12 +114,23 @@ class CustomUser:
         self.df_anime = pd.read_csv('animedb.csv')  # Assuming 'animedb.csv' is your anime dataset
         self.ps = PorterStemmer()
 
+    def standardization(data):
+        x = tf.strings.lower(data)  # all strings to lower
+        x = tf.strings.regex_replace(x, "<[^>]+>", "")  # removing html
+        x = tf.strings.regex_replace(x, "[%s]" % re.escape('!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~'),
+                                     " ")  # removing punctuation
+        x = x.numpy()
+        x = x.decode('utf-8')
+        return x
+
+
     def requirement_based(self):
         try:
             # Tokenize and preprocess user features
-            eng_sw = set(stopwords.words('english'))
+            #eng_sw = set(stopwords.words('english'))
             features_token = word_tokenize(self.features)
-            features_token_set = set([self.ps.stem(token) for token in features_token if token not in eng_sw])
+            # features_token_set = set([self.ps.stem(token) for token in features_token if token not in eng_sw])
+            features_token_set = set([self.ps.stem(token) for token in features_token])
 
             # Filter anime based on user input genres and scores
             genre_pattern = '|'.join(self.user_input_genres)
@@ -130,7 +145,8 @@ class CustomUser:
             for anime_info in df_anime_dict:
                 summary = anime_info['Synopsis']
                 summary_token = word_tokenize(summary)
-                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in eng_sw])
+                # combo_summary_token_set = set([self.ps.stem(token) for token in summary_token if token not in eng_sw])\
+                combo_summary_token_set = set([self.ps.stem(token) for token in summary_token])
                 common_count = len(features_token_set.intersection(combo_summary_token_set))
                 anime_info['Similarity'] = common_count
 
