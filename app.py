@@ -36,6 +36,7 @@ def popular_animes(disabled=False):
 engine = st.radio('Select Any of the Recommendation Models below:',
                   options=('Show Popular Animes','Content Based Recommendations', 'Custom Based Recommendations'),horizontal=True)
 
+
 #df_anime = pd.read_csv('df_anime.csv')
 df_anime = pd.read_csv('animedb.csv')
 ratings_per_user = pickle.load(open('pickle_files/ratings_per_user.pkl', 'rb'))
@@ -43,7 +44,9 @@ ratings_per_user = pickle.load(open('pickle_files/ratings_per_user.pkl', 'rb'))
 if engine == 'Show Popular Animes':
     popular_anime = popular_animes()
     similar_animes_obj = Collaborative(popular_anime)
+
     similar_animes = similar_animes_obj.find_similar_animes()
+
     StreamlitDisplay(similar_animes, custom_engine=False)
 
 

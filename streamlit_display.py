@@ -11,7 +11,7 @@ class StreamlitDisplay:
         try:
             if self.custom_engine:
                 st.subheader('Top Recommendation')
-
+            st.markdown("""---""")
             m1, m2, m3 = st.columns(3)
             m1.image(self.animes[0]['Image URL'], width=300, )
             m2.subheader(f"Anime Selected: {self.animes[0]['Name']}")
@@ -45,9 +45,10 @@ class StreamlitDisplay:
             st.markdown("""---""")
             st.write(" ")
             cols2 = [col7, col8, col9, col10, col11] = st.columns(5)
+            random_numbers = random.sample(range(16, 30), 5)
             for i in range(5):
                 with cols2[i]:
-                    random_number = random.randint(16, 30)
+                    random_number = random_numbers.pop(0)
                     st.image(self.animes[random_number]['Image URL'], width=225,
                              caption=self.animes[random_number]['Name'],
                              use_column_width='auto')
